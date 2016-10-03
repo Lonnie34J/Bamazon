@@ -1,0 +1,2 @@
+# Bamazon
+My nerdy store
