@@ -64,7 +64,8 @@ var shop = function(){
 				console.log("----------------------------------------------------------------");
 				//conditional statements: 1. determines if the user selected quanity is greater than the stock in the database 
 				if (answer.Quanity>res[i].StockQuanity){
-				console.log("Insufcient Quanity!");
+				console.log("Insufcient Quantity!");
+				shop();
 				} 
                 else{
 				
@@ -77,7 +78,10 @@ var shop = function(){
 				console.log(cart);
 
 				for (var j = 0; j < cart.length; j++){
-				    totalCart+=cart[j];
+
+				 	totalCart+=cart[j];
+				 	totalCart-totalCost;
+
 				}
 				console.log(totalCart);
 
@@ -86,7 +90,7 @@ var shop = function(){
 				    console.log("Your Total is: " +"$"+ totalCost);
 				    //invokes the restart function once initial transaction is completed
 				    restart();
-				    })
+				})
 				}
             }
 
