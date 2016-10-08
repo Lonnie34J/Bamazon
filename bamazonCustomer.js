@@ -42,9 +42,8 @@ var shop = function(){
 	inquirer.prompt([{
 			name: "ItemID",
 			message: "Type the id of the item you'd like to purchase.",
-			type: 'list',
-			choices: ['1','2','3','4','5','6','7','8','9','10'],
-			//filter function makes it so that the string value of users input(or in this case choice) will return a number value
+			type: 'input',
+			//filter function makes it so that the string value of users input will return a number value
 			filter: function(str){
 				return Number(str);
 			}

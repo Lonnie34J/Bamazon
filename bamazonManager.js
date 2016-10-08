@@ -16,6 +16,7 @@ connection.connect(function (err){
 	//console.log("connected as id", connection.threadId);
 });
 
+//opens the app and asks user what action they would like to take
 var startManager = function () {
 	inquirer.prompt({
 		name: "manage",
@@ -47,6 +48,7 @@ var startManager = function () {
 	})
 };
 
+//allows user to view the items on sale and gives all the data on each item
 var viewProducts = function () {
 	connection.query("select * from products", function (err, res){
 		for (var i = 0; i<res.length; i++){
@@ -56,6 +58,7 @@ var viewProducts = function () {
 	})
 };
 
+//Shows user what items are in low quantity
 var lowInventory = function () {
 	var query = "SELECT * FROM products WHERE StockQuanity < 5";
 	connection.query(query, function (err, res) {
@@ -68,12 +71,12 @@ var lowInventory = function () {
 	})
 }
 
+//prompts user to enter the id of the item they want to increase the stcok of
 var addInventory = function () {
 	inquirer.prompt([{
 		name: "ItemID",
 		message: "Select the itemID you want to icrease the inventory of.",
-		type: "list",
-		choices: ['1','2','3','4','5','6','7','8','9','10'],
+		type: "input",
 		filter: function(str){
 			return Number(str);
 		}
@@ -108,6 +111,7 @@ var addInventory = function () {
 	});
 };
 
+//prompts the user to add more inventory to another item
 var addMoreInventory = function() {
 	inquirer.prompt({
 		name: "Continue",
@@ -127,6 +131,7 @@ var addMoreInventory = function() {
 	});
 };
 
+//prompts user for product information
 var addProduct = function() {
 	inquirer.prompt([{
 		name: "ProductName",
@@ -147,7 +152,8 @@ var addProduct = function() {
 			return Number(str);
 		}
 	
-	}]).then(function(answer){
+	}]).then(function(answer){ 
+		//creates an object that will store the user inputs from the add product prompt
 		var newProduct = {
 			ProductName: answer.ProductName,
 			DepartmentName: answer.DepartmentName,
@@ -155,6 +161,7 @@ var addProduct = function() {
 			StockQuanity: answer.StockQuanity
 		}; 
 		//console.log(newProduct);
+		//takes the newly created object and inserts it into the specified sql table
 		connection.query('INSERT INTO Products SET ?', newProduct, function(err, res){
 			if (err){throw err;}
 			console.log("Item added.");
@@ -163,6 +170,7 @@ var addProduct = function() {
 	})
 };
 
+//prompts the user to see if they want to keep addung more products 
 var addMoreProducts = function(){
 	inquirer.prompt({
 		name: "addMore",
@@ -182,6 +190,7 @@ var addMoreProducts = function(){
 	});
 };
 
+//Prompts the user to see if they want to continue using the app
 var quitApp = function(){
 	inquirer.prompt({
 		name: "Quit",
@@ -193,8 +202,13 @@ var quitApp = function(){
 			connection.end(function(err){
 				if(err){throw err;}
 			})
-		}else{
+		}
+		else if(answer.Quit === 'n'){
 			startManager();
+		}
+		else{
+			console.log("Input error answer with y or n.");
+			quitApp();
 		};
 	});
 };
