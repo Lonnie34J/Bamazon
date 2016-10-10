@@ -55,7 +55,7 @@ var viewProducts = function () {
 			console.log("ItemID: " + res[i].ItemID + " | " + "PN: " + res[i].ProductName + " | " + "DN: " + res[i].DepartmentName + " | " + "Price: $" + res[i].Price + " | " + "Stock: " + res[i].StockQuanity);
 		}
 		startManager();
-	})
+	});
 };
 
 //Shows user what items are in low quantity
@@ -68,7 +68,7 @@ var lowInventory = function () {
 			console.log("Product: " + res[i].ProductName + "|" + "Stock: " + res[i].StockQuanity);
 		}
 		startManager();
-	})
+	});
 }
 
 //prompts user to enter the id of the item they want to increase the stcok of

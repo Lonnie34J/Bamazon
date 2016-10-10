@@ -2,8 +2,8 @@
 
 var mysql = require("mysql");
 var inquirer = require("inquirer");
-var cart = [];
-var totalCart = 0;
+//var cart = [];
+//var totalCart = 0;
 
 //Sets up connect to mysql database
 var connection = mysql.createConnection({
@@ -73,16 +73,16 @@ var shop = function(){
 				var totalCost = res[i].Price * answer.Quanity; //3. multiplies the price by how many of item user enters
 				//console.log(totalCost);
 										
-				cart.push(totalCost);
-				console.log(cart);
+				//cart.push(totalCost);
+				//console.log(cart);
 
-				for (var j = 0; j < cart.length; j++){
+				//for (var j = 0; j < cart.length; j++){
 
-				 	totalCart+=cart[j];
-				 	totalCart-totalCost;
+				 //	totalCart+=cart[j];
+				 //	totalCart-totalCost;
 
-				}
-				console.log(totalCart);
+				//}
+				//console.log(totalCart);
 
 				connection.query("UPDATE products SET ? WHERE ?", [{StockQuanity: stockTotal}, {ItemID: answer.ItemID}], function(err, res){
 				    if (err){throw err}
